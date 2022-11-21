@@ -16,4 +16,4 @@ jobs:
       - name: Install node package
         run: npm install web-ext-submit
       - name: Upload and Release
-        run: web-ext-submit --api-key=${{ secrets.FIREFOX_API_KEY }} --api-secret=${{ secrets.FIREFOX_API_SECRET }}
+        run: npx web-ext-submit@7
