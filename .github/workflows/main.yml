@@ -1,28 +1,21 @@
-name: CI/CD Pipeline - Chrome Web Store
+name: CI/CD Pipeline - Firefox Release
 on:
   push:
     branches:
-    - chrome-release
+    - firefox-release
+    - main
   workflow_dispatch:
 jobs:
-  publish-chrome-web-store:
+  publish-firefox-add-on:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: firefox-release
         name: Checkout the repository
-      - run: zip chrome-release.zip *
-        name: Zip the extension
-      - uses: actions/upload-artifact@v3
-        name: Store the zip artifact
-        with:
-          name: chrome-release
-          path: chrome-release.zip
+      - name: move to the repo
+        run: ls
+      - name: Install node package
+        run: npm install web-ext-submit
       - name: Upload and Release
-        uses: mnao305/chrome-extension-upload@3.0.0
-        with:
-          file-path: chrome-release.zip
-          extension-id: ${{ secrets.CWS_EXTENSION_ID }}
-          client-id: ${{ secrets.CWS_CLIENT_ID }}
-          client-secret: ${{ secrets.CWS_CLIENT_SECRET }}
-          refresh-token: ${{ secrets.CWS_REFRESH_TOKEN }}
-          publish: false
+        run: npx web-ext-submit@7 --api-key=${{ secrets.FIREFOX_API_KEY }} --api-secret=${{ secrets.FIREFOX_API_SECRET }}

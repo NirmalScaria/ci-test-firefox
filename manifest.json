@@ -6,7 +6,7 @@
     "gecko": {
       "id": "{fd903445-e572-42dd-90be-ae63dd5840ea}"
     }
-  }
+  },
   "manifest_version": 2,
   "content_scripts": [
     {
