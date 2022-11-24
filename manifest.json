@@ -2,12 +2,12 @@
   "name": "Le Git Graph - Commits Graph for GitHub",
   "description": "A browser extension that displays the git graph for any GitHub repository.",
   "version": "1.0.41",
-  "manifest_version": 3,
   "browser_specific_settings": {
     "gecko": {
       "id": "{fd903445-e572-42dd-90be-ae63dd5840ea}"
     }
-  }
+  },
+  "manifest_version": 2,
   "content_scripts": [
     {
       "matches": [
@@ -43,9 +43,10 @@
     }
   ],
   "permissions": [
-    "tabs"
+    "tabs",
+    "*://api.github.com/*"
   ],
-  "action": {
+  "browser_action": {
     "default_icon": {
       "16": "/images/le_git_graph16.png",
       "32": "/images/le_git_graph32.png",
@@ -62,22 +63,17 @@
     "128": "/images/le_git_graph128.png"
   },
   "background": {
-    "service_worker": "js/serviceWorker.js"
+    "scripts": [
+      "js/serviceWorker.js"
+    ]
   },
   "web_accessible_resources": [
-    {
-      "resources": [
-        "js/authInject.js",
-        "images/popup.png",
-        "html/branchSelection.html",
-        "html/authorizationPrompt.html",
-        "html/commitsLoading.html",
-        "html/commitsContainer.html",
-        "html/commitItem.html"
-      ],
-      "matches": [
-        "<all_urls>"
-      ]
-    }
+    "js/authInject.js",
+    "images/popup.png",
+    "html/branchSelection.html",
+    "html/authorizationPrompt.html",
+    "html/commitsLoading.html",
+    "html/commitsContainer.html",
+    "html/commitItem.html"
   ]
 }
